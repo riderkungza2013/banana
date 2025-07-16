@@ -1,3 +1,9 @@
+<script>
+  if (localStorage.getItem("birthday_auth") !== "ok") {
+    window.location.href = "../index.html";
+  }
+</script>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -7,31 +13,111 @@
     <link rel="stylesheet" href="../styles.css" />
   </head>
   <body>
+    <canvas id="confettiCanvas"></canvas>
     <div class="celebrate-bg">
-      <div class="celebrate" style="--j:1;">🎉</div>
-      <div class="celebrate" style="--j:2;">🎂</div>
-      <div class="celebrate" style="--j:3;">🎈</div>
-      <div class="celebrate" style="--j:4;">🎁</div>
-      <div class="celebrate" style="--j:5;">🎊</div>
-      <div class="celebrate" style="--j:6;">🎉</div>
-      <div class="celebrate" style="--j:7;">🎂</div>
-      <div class="celebrate" style="--j:8;">🎈</div>
-      <div class="celebrate" style="--j:9;">🎁</div>
-      <div class="celebrate" style="--j:10;">🎊</div>
+      <div class="celebrate" style="--j: 1">🎉</div>
+      <div class="celebrate" style="--j: 2">🎂</div>
+      <div class="celebrate" style="--j: 3">🎈</div>
+      <div class="celebrate" style="--j: 4">🎁</div>
+      <div class="celebrate" style="--j: 5">🎊</div>
+      <div class="celebrate" style="--j: 6">🎉</div>
+      <div class="celebrate" style="--j: 7">🎂</div>
+      <div class="celebrate" style="--j: 8">🎈</div>
+      <div class="celebrate" style="--j: 9">🎁</div>
+      <div class="celebrate" style="--j: 10">🎊</div>
     </div>
     <div class="greeting-container">
       <div class="music-status">
         <span id="musicState">กำลังเล่นเพลงวันเกิด 🎵</span>
         <button id="toggleMusic" class="btn-music">หยุดเพลง</button>
       </div>
-    <audio id="birthdaySong" src="../assets/THEWAIT8.mp3" preload="none"></audio>
-    <script>
-      // ไม่เล่นเพลงอัตโนมัติ รอให้กดก่อน
-      document.getElementById('birthdaySong').pause();
-      document.getElementById('musicState').innerText = "กดเพื่อเล่นเพลงวันเกิด 🎵";
-      document.getElementById('toggleMusic').innerText = "เล่นเพลง";
-    </script>
+      <audio
+        id="birthdaySong"
+        src="../assets/THEWAIT8.mp3"
+        preload="none"
+      ></audio>
+      <script>
+        // ไม่เล่นเพลงอัตโนมัติ รอให้กดก่อน
+        document.getElementById("birthdaySong").pause();
+        document.getElementById("musicState").innerText =
+          "กดเพื่อเล่นเพลงวันเกิด 🎵";
+        document.getElementById("toggleMusic").innerText = "เล่นเพลง";
+      </script>
+
       <h1>Happy birthday <span style="color: red">&#10084;</span></h1>
+      <div
+        id="birthInfo"
+        style="
+          margin: 24px 0 12px 0;
+          font-size: 1.15rem;
+          color: #e75480;
+          font-family: 'Prompt', 'Kanit', sans-serif;
+          background: rgba(255, 224, 236, 0.5);
+          border-radius: 16px;
+          padding: 18px;
+        "
+      >
+        <!-- ข้อมูลวันเกิดจะแสดงตรงนี้ -->
+      </div>
+      <!-- ...existing code... -->
+      <script>
+        // ...existing code...
+
+        // โชว์อายุ/ราศี/เลขนำโชค อัตโนมัติ
+        (function () {
+          // ตัวอย่าง: วันเกิด 22/07/2543 (ปี พ.ศ.)
+          const birthDate = "22/07/2543";
+          const [d, m, y] = birthDate.split("/").map(Number);
+          const birth = new Date(y - 543, m - 1, d); // แปลง พ.ศ. เป็น ค.ศ.
+          const today = new Date();
+          let age = today.getFullYear() - birth.getFullYear();
+          if (
+            today.getMonth() < birth.getMonth() ||
+            (today.getMonth() === birth.getMonth() &&
+              today.getDate() < birth.getDate())
+          ) {
+            age--;
+          }
+          // ราศี
+          const zodiacs = [
+            ["มังกร", 1, 20],
+            ["กุมภ์", 2, 19],
+            ["มีน", 3, 21],
+            ["เมษ", 4, 21],
+            ["พฤษภ", 5, 22],
+            ["เมถุน", 6, 22],
+            ["กรกฎ", 7, 23],
+            ["สิงห์", 8, 22],
+            ["กันย์", 9, 22],
+            ["ตุลย์", 10, 23],
+            ["พิจิก", 11, 22],
+            ["ธนู", 12, 22],
+            ["มังกร", 12, 31],
+          ];
+          let zodiac = "";
+          for (let i = 0; i < zodiacs.length - 1; i++) {
+            const [name, month, day] = zodiacs[i];
+            const [nextName, nextMonth, nextDay] = zodiacs[i + 1];
+            if ((m === month && d >= day) || (m === nextMonth && d < nextDay)) {
+              zodiac = name;
+              break;
+            }
+          }
+          // เลขนำโชค (สุ่ม 3 ตัว)
+          const lucky = [];
+          while (lucky.length < 3) {
+            let n = Math.floor(Math.random() * 10);
+            if (!lucky.includes(n)) lucky.push(n);
+          }
+          document.getElementById(
+            "birthInfo"
+          ).innerHTML = `<div>อายุ: <b>${age}</b> ปี</div>
+     <div>ราศี: <b>${zodiac}</b></div>
+     <div>เลขนำโชค: <b>${lucky.join(" ")}</b></div>`;
+        })();
+
+        // ...existing code...
+      </script>
       <p>
         สุขสันต์วันเกิดนะที่รักของฉัน 💖 ในวันพิเศษของเธอวันนี้
         อยากให้รู้ไว้ว่าเธอคือของขวัญที่ดีที่สุดในชีวิตฉัน
@@ -55,81 +141,169 @@
       </video>
       <div class="gallery">
         <h2>ภาพความทรงจำ</h2>
-        <img src="../assets/photo1.jpg" alt="memory1" class="gallery-img">
-        <img src="../assets/photo2.jpg" alt="memory2" class="gallery-img">
-        <img src="../assets/photo3.jpg" alt="memory3" class="gallery-img">
+        <img
+          src="../assets/1663005098874.jpg"
+          alt="memory1"
+          class="gallery-img"
+        />
+        <img
+          src="../assets/1663005174669.jpg"
+          alt="memory2"
+          class="gallery-img"
+        />
+        <img
+          src="../assets/1663005190282.jpg"
+          alt="memory3"
+          class="gallery-img"
+        />
+        <img
+          src="../assets/1663026706467.jpg"
+          alt="memory3"
+          class="gallery-img"
+        />
+        <img
+          src="../assets/1663026709932.jpg"
+          alt="memory3"
+          class="gallery-img"
+        />
+        <img
+          src="../assets/1663026742959.jpg"
+          alt="memory3"
+          class="gallery-img"
+        />
       </div>
       <div class="mini-game">
-        <h2>🎁 มินิเกมสุ่มของขวัญวันเกิด สุ่มได้หนึ่ง ครั้งนะจ๊ะ เเล้วเเคปมา 🎉</h2>
+        <h2>
+          🎁 มินิเกมสุ่มของขวัญวันเกิด สุ่มได้หนึ่ง ครั้งนะจ๊ะ
+          สุ่มได้อะไรเเล้วเเคปมา 🎉
+        </h2>
         <button id="giftBtn" class="btn">สุ่มของขวัญ!</button>
         <div id="giftResult" class="gift-result"></div>
       </div>
-      <canvas id="confettiCanvas"></canvas>
+      <div class="quote-game">
+        <h2>💬 สุ่มคำคมหรือข้อคิดวันเกิด</h2>
+        <button class="btn" onclick="showQuote()">สุ่มคำคม</button>
+        <div id="quoteResult" class="gift-result"></div>
+      </div>
+      <div class="quiz-game">
+  <h2>❓ Quiz: ของโปรดของเจ้าของวันเกิดคืออะไร?</h2>
+  <button class="btn" onclick="checkQuiz('ชานมไข่มุก')">ชานมไข่มุก</button>
+  <button class="btn" onclick="checkQuiz('หมูกระทะ')">หมูกระทะ</button>
+  <button class="btn" onclick="checkQuiz('ตี๋น้อย')">ตี๋น้อย</button>
+  <div id="quizResult" class="gift-result"></div>
+</div>
     </div>
+    <div id="lightbox" class="lightbox">
+      <span class="lightbox-close" id="lightboxClose">&times;</span>
+      <img class="lightbox-img" id="lightboxImg" src="" alt="รูปใหญ่" />
+    </div>
+    
     <script>
-    // มินิเกมสุ่มของขวัญ
-    const gifts = [
-      "กินของอร่อย 🍰",
-      "รองเท้า 🥿",
-      "ดอกกุหลาบแดง 🌹",
-      "ไปเที่ยวที่อยากไป 🏖️",
-      "กอดแน่นๆ จากคนรัก 🤗",
-      "กินตี๋น้อย 🎊",
-      "หมู 🐷",
-      "ของขวัญลับสุดพิเศษ 🎁"
-    ];
-    document.getElementById('giftBtn').onclick = function() {
-      const result = gifts[Math.floor(Math.random() * gifts.length)];
-      document.getElementById('giftResult').innerHTML = `<span>${result}</span>`;
-      this.disabled = true;
-      this.innerText = "สุ่มแล้ว!";
-    };
+      // มินิเกมสุ่มของขวัญ
+      const gifts = [
+        "กินของอร่อย 🍰",
+        "รองเท้า 🥿",
+        "ดอกกุหลาบแดง 🌹",
+        "ไปเที่ยวที่อยากไป 🏖️",
+        "กอดแน่นๆ จากคนรัก 🤗",
+        "กินตี๋น้อย 🎊",
+        "หมู 🐷",
+        "ของขวัญลับสุดพิเศษ 🎁",
+      ];
+      document.getElementById("giftBtn").onclick = function () {
+        const result = gifts[Math.floor(Math.random() * gifts.length)];
+        document.getElementById(
+          "giftResult"
+        ).innerHTML = `<span>${result}</span>`;
+        this.disabled = true;
+        this.innerText = "สุ่มแล้ว!";
+      };
 
-    // confetti effect
-    function confetti() {
-      const canvas = document.getElementById('confettiCanvas');
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      const ctx = canvas.getContext('2d');
-      const pieces = [];
-      for(let i=0;i<120;i++){
-        pieces.push({
-          x: Math.random()*canvas.width,
-          y: Math.random()*canvas.height,
-          r: Math.random()*8+4,
-          c: `hsl(${Math.random()*360},80%,70%)`,
-          v: Math.random()*2+1
-        });
-      }
-      function draw(){
-        ctx.clearRect(0,0,canvas.width,canvas.height);
-        for(const p of pieces){
-          ctx.beginPath();
-          ctx.arc(p.x,p.y,p.r,0,2*Math.PI);
-          ctx.fillStyle = p.c;
-          ctx.fill();
-          p.y += p.v;
-          if(p.y > canvas.height) p.y = -10;
+      // confetti effect
+      function confetti() {
+        const canvas = document.getElementById("confettiCanvas");
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        const ctx = canvas.getContext("2d");
+        const pieces = [];
+        for (let i = 0; i < 120; i++) {
+          pieces.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            r: Math.random() * 8 + 4,
+            c: `hsl(${Math.random() * 360},80%,70%)`,
+            v: Math.random() * 2 + 1,
+          });
         }
-        requestAnimationFrame(draw);
+        function draw() {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          for (const p of pieces) {
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.r, 0, 2 * Math.PI);
+            ctx.fillStyle = p.c;
+            ctx.fill();
+            p.y += p.v;
+            if (p.y > canvas.height) p.y = -10;
+          }
+          requestAnimationFrame(draw);
+        }
+        draw();
       }
-      draw();
-    }
-    confetti();
+      confetti();
 
-    document.getElementById('toggleMusic').onclick = function() {
-      const audio = document.getElementById('birthdaySong');
-      const state = document.getElementById('musicState');
-      if (!audio.paused) {
-        audio.pause();
-        this.innerText = "เล่นเพลง";
-        state.innerText = "หยุดเพลง 🎵";
-      } else {
-        audio.play();
-        this.innerText = "หยุดเพลง";
-        state.innerText = "กำลังเล่นเพลงวันเกิด 🎵";
+      document.getElementById("toggleMusic").onclick = function () {
+        const audio = document.getElementById("birthdaySong");
+        const state = document.getElementById("musicState");
+        if (!audio.paused) {
+          audio.pause();
+          this.innerText = "เล่นเพลง";
+          state.innerText = "หยุดเพลง 🎵";
+        } else {
+          audio.play();
+          this.innerText = "หยุดเพลง";
+          state.innerText = "กำลังเล่นเพลงวันเกิด 🎵";
+        }
+      };
+
+      // Lightbox gallery
+      document.querySelectorAll(".gallery-img").forEach((img) => {
+        img.onclick = function () {
+          document.getElementById("lightboxImg").src = this.src;
+          document.getElementById("lightbox").style.display = "flex";
+        };
+      });
+      document.getElementById("lightboxClose").onclick = function () {
+        document.getElementById("lightbox").style.display = "none";
+      };
+      document.getElementById("lightbox").onclick = function (e) {
+        if (e.target === this) this.style.display = "none";
+      };
+
+      // สุ่มคำคม
+      const quotes = [
+        "ขอให้ทุกวันเป็นวันที่ดีของเธอ",
+        "ชีวิตคือการเดินทางที่สวยงาม",
+        "ขอให้หัวใจของเธอเต็มไปด้วยความสุข",
+        "ทุกปีที่ผ่านไปคือประสบการณ์ที่มีค่า",
+        "ขอให้รอยยิ้มของเธอสดใสเสมอ",
+        "จงเชื่อมั่นในตัวเองและเดินหน้าต่อไป",
+        "ขอให้ความรักอยู่รอบตัวเธอเสมอ",
+        "สุขสันต์วันเกิด! ขอให้สมหวังในทุกสิ่ง",
+      ];
+      function showQuote() {
+        const result = quotes[Math.floor(Math.random() * quotes.length)];
+        document.getElementById("quoteResult").innerHTML = `<span>${result}</span>`;
       }
-    };
+
+      function checkQuiz(ans) {
+  const correct = "ตี๋น้อย";
+  if (ans === correct) {
+    document.getElementById('quizResult').innerHTML = "<span style='color:#27ae60;'>ถูกต้อง! 🎉</span>";
+    confetti(); // เรียก confetti ได้ถ้ามีฟังก์ชันนี้
+  } else {
+    document.getElementById('quizResult').innerHTML = "<span style='color:#d72660;'>ลองใหม่อีกครั้ง!</span>";
+  }
+}
     </script>
   </body>
 </html>

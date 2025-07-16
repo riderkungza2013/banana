@@ -10,12 +10,13 @@ function redirectToGreeting() {
     }
 }
 
-document.getElementById('passwordForm').addEventListener('submit', function(e) {
-    e.preventDefault();
+document.getElementById('passwordForm').addEventListener('submit', function(event) {
+    event.preventDefault();
     const password = document.getElementById('password').value;
     if (password === '220743') {
+        localStorage.setItem('birthday_auth', 'ok');
         window.location.href = 'pages/greeting.html';
     } else {
-        alert('Incorrect password. Please try again.');
+        alert('รหัสผ่านไม่ถูกต้อง');
     }
 });
