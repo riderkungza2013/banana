@@ -1,0 +1,20 @@
+{
+  "name": "web-project",
+  "version": "1.0.0",
+  "description": "A simple web project for password entry and greeting display.",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "live-server src"
+  },
+  "keywords": [
+    "password",
+    "greeting",
+    "web"
+  ],
+  "author": "Your Name",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "live-server": "^1.2.1"
+  }
+}

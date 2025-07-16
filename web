@@ -1,0 +1,71 @@
+-project\src\styles.css */
+body {
+    background: linear-gradient(135deg, #f8ffae 0%, #43c6ac 100%);
+    min-height: 100vh;
+    margin: 0;
+    font-family: 'Segoe UI', 'Prompt', Arial, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.card {
+    background: #fff;
+    padding: 2.5rem 2rem;
+    border-radius: 18px;
+    box-shadow: 0 8px 32px rgba(60, 60, 60, 0.15);
+    text-align: center;
+    width: 350px;
+}
+
+.title {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    color: #43c6ac;
+    font-weight: 700;
+}
+
+.label {
+    display: block;
+    margin-bottom: 0.7rem;
+    font-size: 1.1rem;
+    color: #333;
+}
+
+.input {
+    width: 100%;
+    padding: 0.7rem 1rem;
+    border: 1px solid #43c6ac;
+    border-radius: 8px;
+    font-size: 1rem;
+    margin-bottom: 1.2rem;
+    transition: border-color 0.2s;
+}
+
+.input:focus {
+    border-color: #f8ffae;
+    outline: none;
+}
+
+.btn {
+    width: 100%;
+    padding: 0.8rem 0;
+    background: linear-gradient(90deg, #43c6ac 0%, #f8ffae 100%);
+    border: none;
+    border-radius: 8px;
+    color: #222;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn:hover {
+    background: linear-gradient(90deg, #f8ffae 0%,
